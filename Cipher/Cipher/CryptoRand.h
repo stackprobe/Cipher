@@ -6,4 +6,4 @@ void deleteKeyContainer(void);
 void getCryptoBlock_MS(uchar *buffer, int size);
 
 int getCryptoByte(void);
-uint getCryptoRand(uint modulo);
+uint64 getCryptoRand64_Mod(uint64 modulo);

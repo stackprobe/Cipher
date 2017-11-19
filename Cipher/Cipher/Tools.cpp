@@ -118,7 +118,7 @@ char *MkPassword(int pwLen)
 
 		for(int index = 0; index < pwLen; index++)
 		{
-			int value = (int)getCryptoRand(10 + 26 + 26);
+			int value = (int)getCryptoRand64_Mod(10 + 26 + 26);
 			int chr;
 
 			if(value < 10)

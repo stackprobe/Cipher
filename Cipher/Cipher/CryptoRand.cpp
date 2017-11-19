@@ -37,9 +37,10 @@ cout("\n");
 #endif
 }
 
-#if 0
+#if 1
 
-#define BUFFERSIZE 1000000
+#define BUFFERSIZE 65536
+//#define BUFFERSIZE 1000000
 //#define BUFFERSIZE 65 // old
 
 int getCryptoByte(void)
@@ -127,10 +128,10 @@ int getCryptoByte(void)
 
 #endif
 
-uint getCryptoRand(uint modulo) // ret: 0 Å` (modulo - 1), modulo: 1 Å` UINTMAX
+uint64 getCryptoRand64_Mod(uint64 modulo) // ret: 0 Å` (modulo - 1), modulo: 1 Å` UINT64MAX
 {
 	uint64 value;
-	uint64 r = (0x8000000000000000ui64 / modulo) * modulo;
+	uint64 r = ((0xffffffffffffffffui64 % modulo) + 1) % modulo;
 
 	do
 	{
@@ -138,9 +139,8 @@ uint getCryptoRand(uint modulo) // ret: 0 Å` (modulo - 1), modulo: 1 Å` UINTMAX
 		{
 			((uchar *)&value)[index] = getCryptoByte();
 		}
-		value &= 0x7fffffffffffffffui64;
 	}
-	while(r <= value);
+	while(value < r);
 
-	return (uint)(value % (uint64)modulo);
+	return value % modulo;
 }
