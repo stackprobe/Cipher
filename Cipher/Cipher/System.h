@@ -1,9 +1,6 @@
 extern int BatchMode;
 extern int SilentMode;
 
-void addFinalizer(void (*func)(void));
-void (*unaddFinalizer(void))(void);
-
 void termination(int errorlevel);
 void error2(char *source, int lineno, char *function, char *message = NULL);
 
@@ -35,9 +32,3 @@ char *getArg(int index);
 char *nextArg(void);
 int getArgIndex(void);
 void setArgIndex(int index);
-
-char *getSelfFile(void);
-char *getSelfDir(void);
-
-time_t now(void);
-char *getTimeStamp(time_t t = 0);

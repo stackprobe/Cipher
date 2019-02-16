@@ -3,23 +3,8 @@
 int BatchMode;
 int SilentMode;
 
-static oneObject(autoList<void (*)(void)>, new autoList<void (*)(void)>(), GetFinalizers)
-
-void addFinalizer(void (*func)(void))
-{
-	GetFinalizers()->AddElement(func);
-}
-void (*unaddFinalizer(void))(void)
-{
-	return GetFinalizers()->UnaddElement();
-}
-
 void termination(int errorlevel)
 {
-	while(GetFinalizers()->GetCount())
-	{
-		GetFinalizers()->UnaddElement()();
-	}
 	cout("exitcode: %d\n", errorlevel);
 	exit(errorlevel);
 }
@@ -124,54 +109,4 @@ void setArgIndex(int index)
 {
 	errorCase(index < 0 || __argc < index); // index == __argc ‚Í‘S•”“Ç‚ÝI‚í‚Á‚½ó‘Ô
 	ArgIndex = index;
-}
-
-char *getSelfFile(void)
-{
-	static char *fileBuff;
-
-	if(!fileBuff)
-	{
-		const int BUFFSIZE = 1000;
-		const int MARGINSIZE = 10;
-
-		fileBuff = (char *)memAlloc(BUFFSIZE + MARGINSIZE);
-		errorCase(!GetModuleFileName(NULL, fileBuff, BUFFSIZE)); // ? Ž¸”s
-	} 
-	return fileBuff;
-}
-char *getSelfDir(void)
-{
-	static char *dirBuff;
-
-	if(!dirBuff)
-		dirBuff = getDir(getSelfFile());
-
-	return dirBuff;
-}
-
-time_t now(void)
-{
-	static time_t firstAccessTime = -1;
-
-	if(firstAccessTime == -1)
-		firstAccessTime = time(NULL);
-
-	return time(NULL) - firstAccessTime;
-}
-char *getTimeStamp(time_t t) // t: 0 == Œ»Žž
-{
-	static char timeStamp[25];
-	char *p;
-
-	if(!t)
-		t = time(NULL);
-
-	p = ctime(&t); // "Wed Jan 02 02:03:55 1980\n"
-
-	if(!p) // ? invalid t
-		p = "Thu Jan 01 00:00:00 1970";
-
-	memcpy(timeStamp, p, 24);
-	return timeStamp; // "Wed Jan 02 02:03:55 1980"
 }

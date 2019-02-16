@@ -700,6 +700,7 @@ void sha512_makeHash(sha512_t *i)
 	SHA512_Final(sha512_hash, &ctx);
 }
 
+#if 0 // not using
 static oneObject(autoList<uchar>, new autoList<uchar>(), GetEvBuff)
 
 void sha512_localize(void)
@@ -710,3 +711,4 @@ void sha512_unlocalize(void)
 {
 	GetEvBuff()->UnaddElements(sha512_hash, 64);
 }
+#endif

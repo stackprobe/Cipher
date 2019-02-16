@@ -216,5 +216,5 @@ void sha512_update(sha512_t *i, void *text, int size);
 void sha512_update(sha512_t *i, char *file, __int64 start, __int64 size);
 void sha512_makeHash(sha512_t *i);
 
-void sha512_localize(void);
-void sha512_unlocalize(void);
+//void sha512_localize(void); // not using
+//void sha512_unlocalize(void); // not using

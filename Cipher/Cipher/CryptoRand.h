@@ -1,8 +1,8 @@
 #include <wincrypt.h>
 #pragma comment(lib, "ADVAPI32")
 
-void createKeyContainer(void);
-void deleteKeyContainer(void);
+//void createKeyContainer(void); // not using
+//void deleteKeyContainer(void); // not using
 void getCryptoBlock_MS(uchar *buffer, int size);
 
 int getCryptoByte(void);

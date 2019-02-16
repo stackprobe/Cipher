@@ -1,5 +1,6 @@
 #include "all.h"
 
+#if 0 // not using
 void createKeyContainer(void)
 {
 	HCRYPTPROV hp;
@@ -13,6 +14,7 @@ void deleteKeyContainer(void)
 
 	CryptAcquireContext(&hp, 0, 0, PROV_RSA_FULL, CRYPT_DELETEKEYSET); // ÉGÉâÅ[ñ≥éã
 }
+#endif
 void getCryptoBlock_MS(uchar *buffer, int size)
 {
 	HCRYPTPROV hp;

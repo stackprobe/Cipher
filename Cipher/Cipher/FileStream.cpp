@@ -68,63 +68,9 @@ int readChar(FILE *fp)
 	errorCase(chr == EOF && ferror(fp)); // ? Ž¸”s
 	return chr;
 }
-char *readLine(FILE *fp)
-{
-	autoList<char> *buff = new autoList<char>();
-
-	for(; ; )
-	{
-		int chr = readChar(fp);
-
-		if(chr == '\r')
-			continue;
-
-		if(chr == '\n')
-			break;
-
-		if(chr == EOF)
-		{
-			if(!buff->GetCount())
-			{
-				delete buff;
-				return NULL;
-			}
-			break;
-		}
-		buff->AddElement(chr);
-	}
-	buff->AddElement('\0');
-	char *line = buff->UnbindBuffer();
-	delete buff;
-	return line;
-}
-
 void writeChar(FILE *fp, int chr)
 {
 	errorCase(fputc(chr, fp) == EOF); // ? Ž¸”s
-}
-void writeToken(FILE *fp, char *token)
-{
-	for(char *p = token; *p; p++)
-	{
-		writeChar(fp, *p);
-	}
-}
-void writeLine(FILE *fp, char *line)
-{
-	writeToken(fp, line);
-	writeChar(fp, '\n');
-}
-void writeLine(char *file, char *line)
-{
-	FILE *fp = fileOpen(file, "wt");
-	writeLine(fp, line);
-	fileClose(fp);
-}
-void writeLine_cx(char *file, char *line)
-{
-	writeLine(file, line);
-	memFree(line);
 }
 
 void fileSeek(FILE *fp, int origin, __int64 offset) // origin, offset ‚Ì•À‚Ñ‚Í fseek() ‚Æ‹t
@@ -148,12 +94,14 @@ void fileWrite(FILE *fp, void *block, int size)
 	}
 }
 
+#if 0 // not using
 void readBlock(char *file, void *block, int size)
 {
 	FILE *fp = fileOpen(file, "rb");
 	fileRead(fp, block, size);
 	fileClose(fp);
 }
+#endif
 void writeBlock(char *file, void *block, int size, int addMode)
 {
 	FILE *fp = fileOpen(file, addMode ? "ab" : "wb");

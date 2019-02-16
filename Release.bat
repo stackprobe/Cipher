@@ -5,7 +5,7 @@ COPY /B AUTHORS out
 COPY /B LICENSE out
 COPY /B Readme_man.txt out\Readme.txt
 
-C:\Factory\Tools\zcp.exe out C:\app\fCipher
+rem C:\Factory\Tools\zcp.exe out C:\app\fCipher
 
 C:\Factory\SubTools\zip.exe /O out fCipher
 

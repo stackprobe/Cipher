@@ -8,76 +8,6 @@ int existFile(char *file)
 {
 	return existPath(file) && !(GetFileAttributes(file) & FILE_ATTRIBUTE_DIRECTORY);
 }
-int existDir(char *dir)
-{
-	return existPath(dir) && GetFileAttributes(dir) & FILE_ATTRIBUTE_DIRECTORY;
-}
-
-void trimPath(char *path)
-{
-	escapeYen(path);
-	trimSequ(path, '/');
-	unescapeYen(path);
-}
-char *combine(char *dir, char *file)
-{
-	if(dir[0] && dir[1] == ':' && dir[2] == '\0')
-	{
-		static char buff[] = "?:.";
-
-		buff[0] = dir[0];
-		dir = buff;
-	}
-	char *dirFile = xcout("%s\\%s", dir, file);
-
-	trimPath(dirFile);
-	return dirFile;
-}
-char *combine_cx(char *dir, char *file)
-{
-	char *out = combine(dir, file);
-	memFree(file);
-	return out;
-}
-char *combine_xc(char *dir, char *file)
-{
-	char *out = combine(dir, file);
-	memFree(dir);
-	return out;
-}
-char *getDir(char *path)
-{
-	path = strx(path);
-	escapeYen(path);
-	char *p = strrchr(path, '/');
-
-	if(p)
-	{
-		*p = '\0';
-		unescapeYen(path);
-
-		// ? ÉãÅ[ÉgÉfÉBÉåÉNÉgÉä
-		if(
-			path[0] &&
-			path[1] == ':' &&
-			path[2] == '\0'
-			)
-		{
-			path[2] = '\\';
-			path[3] = '\0';
-		}
-	}
-	else
-		strz(path, ".");
-
-	return path;
-}
-char *getDir_x(char *path)
-{
-	char *out = getDir(path);
-	memFree(path);
-	return out;
-}
 
 void setCwd(char *dir)
 {
@@ -97,84 +27,20 @@ char *getCwd(void)
 	free(dirBuff);
 	return dir;
 }
-static oneObject(autoList<char *>, new autoList<char *>(), GetCwdStack)
+
+static char *MemorizedDir = NULL;
 
 void addCwd(char *dir)
 {
-	GetCwdStack()->AddElement(getCwd());
+	errorCase(MemorizedDir);
+	MemorizedDir = getCwd();
 	setCwd(dir);
-}
-void addCwd_x(char *dir)
-{
-	addCwd(dir);
-	memFree(dir);
 }
 void unaddCwd(void)
 {
-	setCwd_x(GetCwdStack()->UnaddElement());
-}
-
-// sync > @ My_mkdir
-
-static int My_mkdir(char *dir) // ret: ? é∏îs
-{
-#if 1
-	if(CreateDirectory(dir, NULL) == 0) // ? é∏îs
-	{
-		return 1;
-	}
-	return 0;
-#else
-	if(_mkdir(dir)) // ? é∏îs
-	{
-		return 1;
-	}
-	return 0;
-#endif
-}
-
-// < sync
-
-void createFile(char *file)
-{
-	errorCase(m_isEmpty(file));
-	fileClose(fileOpen(file, "wb"));
-}
-void createDir(char *dir)
-{
-	errorCase(m_isEmpty(dir));
-	errorCase(My_mkdir(dir)); // ? é∏îs
-}
-
-void removeFile(char *file)
-{
-	errorCase(m_isEmpty(file));
-	remove(file);
-}
-void removeDir(char *dir)
-{
-	errorCase(m_isEmpty(dir));
-	_rmdir(dir);
-}
-void clearDir(char *dir)
-{
-	autoList<char *> *paths = lss(dir);
-
-	while(paths->GetCount())
-	{
-		char *path = paths->UnaddElement();
-
-		remove(path);
-		_rmdir(path);
-
-		memFree(path);
-	}
-	delete paths;
-}
-void forceRemoveDir(char *dir)
-{
-	clearDir(dir);
-	_rmdir(dir);
+	errorCase(!MemorizedDir);
+	setCwd_x(MemorizedDir);
+	MemorizedDir = NULL;
 }
 
 void fileMove(char *rFile, char *wFile)
