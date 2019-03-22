@@ -1,4 +1,5 @@
 char *strx(char *line);
+char *strr(char *line);
 
 #define isMbc1(chr) \
 	(_ismbblead((chr)))
