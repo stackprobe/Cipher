@@ -177,7 +177,7 @@
 
 ■暗号化の実装
 
-　CIPHER = cbcx ( cbcx ( PLAIN + padding + randpart + hash + iv , key1 ) , key2 )
+　CIPHER = cbcx ( cbcx ( PLAIN + padding + randpart + hash + iv , key1 ) , key2 ) + perand
 
 　　padding  ... n を n 個並べたバイト列, n は PLAIN + padding のバイト数が16の倍数となるようなゼロではない8ビットの乱数 ※2
 　　randpart ... 512ビットの乱数 (64バイト) ※2
@@ -187,7 +187,8 @@
 　　key2     ... 鍵の後半256ビット
 　　cbcx     ... 鍵長256ビットのcamelliaによる暗号化, 最後のブロックをIVとするCBCモード ※4
 
-　　/PE オプションを指定した場合「ランダムなバイト列_64バイト」がファイルの終端に追加されます。
+　　perand   ... /PE オプションを指定した場合、/PE オプションで使用する「ランダムなバイト列_64バイト」(64バイト)
+　　             /PE オプションを指定しなかった場合、何も無し (0バイト)
 
 
 ■取り扱い種別
