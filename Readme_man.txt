@@ -1,215 +1,215 @@
 ===============================================================================
 
-�@�t�@�C���Í����v���O�����i�R�}���h���C���Łj
+　ファイル暗号化プログラム（コマンドライン版）
 
 ===============================================================================
 
 
-���\�t�g�̊T�v
+■ソフトの概要
 
-�@�t�@�C�����Í����E��������R���\�[���A�v���P�[�V�����ł��B
+　ファイルを暗号化・復号するコンソールアプリケーションです。
 
 
-�������
+■動作環境
 
-�@Windows 10
-�@�m�F���Ă��܂��� Windows 7/8/8.1 �ł�������������܂���B
+　Windows 10
+　確認していませんが Windows 7/8/8.1 でも動くかもしれません。
 
 
-���C���X�g�[�����@
+■インストール方法
 
-�@�A�[�J�C�u�̒��g�����[�J���f�B�X�N��̔C�ӂ̏ꏊ�ɃR�s�[���ĉ������B
+　アーカイブの中身をローカルディスク上の任意の場所にコピーして下さい。
 
 
-���A���C���X�g�[�����@
+■アンインストール方法
 
-�@���W�X�g���Ȃǂ͈�؎g���Ă��܂���B
-�@�t�@�C�����폜���邾���ŃA���C���X�g�[���ł��܂��B
+　レジストリなどは一切使っていません。
+　ファイルを削除するだけでアンインストールできます。
 
 
-�����s���@
+■実行方法
 
-�@fCipher.exe [/B] [/S] [/R] [/E | /D] /P PASS-PHRASE [/PE X-CHR X-EXP] INPUT-FILE [OUTPUT-FILE]
+　fCipher.exe [/B] [/S] [/R] [/E | /D] /P PASS-PHRASE [/PE X-CHR X-EXP] INPUT-FILE [OUTPUT-FILE]
 
-�@�@/B          ... �o�b�`���[�h
-�@�@/S          ... �T�C�����g���[�h
-�@�@/R          ... ���̓t�@�C�����폜���� ��1
-�@�@/E          ... �Í������[�h
-�@�@/D          ... �������[�h
-�@�@PASS-PHRASE ... �p�X�t���[�Y
-�@�@INPUT-FILE  ... ���̓t�@�C��
-�@�@OUTPUT-FILE ... �o�̓t�@�C��
-�@�@X-CHR       ... �p�X�t���[�Y��������
-�@�@X-EXP       ... �p�X�t���[�Y�����X�P�[��
+　　/B          ... バッチモード
+　　/S          ... サイレントモード
+　　/R          ... 入力ファイルを削除する ※1
+　　/E          ... 暗号化モード
+　　/D          ... 復号モード
+　　PASS-PHRASE ... パスフレーズ
+　　INPUT-FILE  ... 入力ファイル
+　　OUTPUT-FILE ... 出力ファイル
+　　X-CHR       ... パスフレーズ延長文字
+　　X-EXP       ... パスフレーズ延長スケール
 
-�@�@�����Ɏ��s����Əo�̓t�@�C���͏�ɍ폜���܂��B
-�@�@/B /S /R /E /D /P /PE �I�v�V�����͏��������ւ��Ă���肠��܂���B(/P �� PASS-PHRASE �̓Z�b�g�ł�)
+　　復号に失敗すると出力ファイルは常に削除します。
+　　/B /S /R /E /D /P /PE オプションは順序を入れ替えても問題ありません。(/P と PASS-PHRASE はセットです)
 
 
-�@���o�b�`���[�h
+　●バッチモード
 
-�@�@���b�Z�[�W�{�b�N�X�̕\����}�~���A�₢���킹����͑҂����s��Ȃ��悤�ɂ��܂��B
+　　メッセージボックスの表示を抑止し、問い合わせや入力待ちを行わないようにします。
 
 
-�@���T�C�����g���[�h
+　●サイレントモード
 
-�@�@�W���o�͂��s��Ȃ��悤�ɂ��܂��B
+　　標準出力を行わないようにします。
 
 
-�@���p�X�t���[�Y
+　●パスフレーズ
 
-�@�@�Í����E�����Ɏg�p���鋤�ʌ����w�肵�܂��B
-�@�@�{�v���O�������g�p���錮�̒����� 512 �r�b�g�ł��B
-�@�@128����16�i���A�܂� 0�`9, a�`f, A�`F �̕��������ō\�����ꂽ����128�̕�����ł���ꍇ�A
-�@�@���̂܂܌��Ƃ��Ďg�p���܂��B
-�@�@����ȊO�̏ꍇ�A������� SHA-512 �����Ƃ��Ďg�p���܂��B
-�@�@�����R�[�h�� CP932 �ł��B
+　　暗号化・復号に使用する共通鍵を指定します。
+　　本プログラムが使用する鍵の長さは 512 ビットです。
+　　128桁の16進数、つまり 0～9, a～f, A～F の文字だけで構成された長さ128の文字列である場合、
+　　そのまま鍵として使用します。
+　　それ以外の場合、文字列の SHA-512 を鍵として使用します。
+　　文字コードは CP932 です。
 
-�@�@���p�X�t���[�Y���Ԉ���Ă��邩�t�@�C�����j�����Ă���ƁA�����͎��s���܂��B
+　　★パスフレーズが間違っているかファイルが破損していると、復号は失敗します。
 
 
-�@���p�X�t���[�Y�̉���
+　●パスフレーズの延長
 
-�@�@/PE �I�v�V�������w�肷��ƃp�X�t���[�Y�� [�����_���ȃo�C�g��_64�o�C�g] + [ X-CHR �� 2^(X-EXP) ��] ��ǉ����܂��B
-�@�@����ɂ��A���ɒ����p�X�t���[�Y���g�p���邱�Ƃ��ł��܂��B
-�@�@�Ⴆ�΁A/P ABCDEF ���w�肵���ꍇ�̃p�X�t���[�Y��
+　　/PE オプションを指定するとパスフレーズに [ランダムなバイト列_64バイト] + [ X-CHR を 2^(X-EXP) 個] を追加します。
+　　これにより、非常に長いパスフレーズを使用することができます。
+　　例えば、/P ABCDEF を指定した場合のパスフレーズは
 
-�@�@�@ABCDEF
+　　　ABCDEF
 
-�@�@�ł����A/P ABCDEF /PE x 30 ���w�肵���ꍇ�̃p�X�t���[�Y��
+　　ですが、/P ABCDEF /PE x 30 を指定した場合のパスフレーズは
 
-�@�@�@ABCDEF??????????...??????????xxxxxxxxxx...xxxxxxxxxx
-�@�@�@      |<---- 64 �o�C�g ---->||<--- 2^30 �o�C�g --->|
+　　　ABCDEF??????????...??????????xxxxxxxxxx...xxxxxxxxxx
+　　　      |<---- 64 バイト ---->||<--- 2^30 バイト --->|
 
-�@�@�@�@? �� 0 �` 255 �̗��� ��2
+　　　　? ＝ 0 ～ 255 の乱数 ※2
 
-�@�@�ɂȂ�܂��B
-�@�@���������p�X���[�h�Ɠ��l��(�Í������Ɏw�肵�����̂Ɠ���) X-CHR, X-EXP ���w�肷��K�v������܂��B
+　　になります。
+　　復号時もパスワードと同様に(暗号化時に指定したものと同じ) X-CHR, X-EXP を指定する必要があります。
 
-�@�@X-CHR �ɂ�1�o�C�g�̕����̂ݎw��ł��܂��B
-�@�@2����16�i��(0�`9, a�`f, A�`F �̕��������ō\�����ꂽ����2�̕�����)�́A�����R�[�h�Ƃ��ď������܂��B
-�@�@�Ⴆ�΁A/PE _ 20 �� /PE 5f 20 �͓����ł��B
+　　X-CHR には1バイトの文字のみ指定できます。
+　　2桁の16進数(0～9, a～f, A～F の文字だけで構成された長さ2の文字列)は、文字コードとして処理します。
+　　例えば、/PE _ 20 と /PE 5f 20 は同じです。
 
-�@�@X-EXP �Ɏw��ł���l�� 10�`40 �ł��B
+　　X-EXP に指定できる値は 10～40 です。
 
-�@�@X-EXP ���\���ɑ傫����Ό��̐����Ɏ��Ԃ��|���邽�߁A
-�@�@������U���ɂ��p�X�t���[�Y�̐���͓���Ȃ�E�E�E�悤�ȋC�����܂��B
-�@�@(�Í����_�I�Ɍ��ʂ����邩�͕�����܂���E�E�E)
+　　X-EXP が十分に大きければ鍵の生成に時間が掛かるため、
+　　総当り攻撃によるパスフレーズの推定は難しくなる・・・ような気がします。
+　　(暗号理論的に効果があるかは分かりません・・・)
 
 
-�@���o�̓t�@�C�����ȗ������ꍇ
+　●出力ファイルを省略した場合
 
-�@�@�Í������[�h�ł���΁A���̓t�@�C���� .cphr ��t���������O�ɂȂ�܂��B
-�@�@�������[�h�ł���΁A���̓t�@�C���̊g���q����菜�������O�ɂȂ�A�g���q��������� .dec ��t�����܂��B
+　　暗号化モードであれば、入力ファイルに .cphr を付加した名前になります。
+　　復号モードであれば、入力ファイルの拡張子を取り除いた名前になり、拡張子が無ければ .dec を付加します。
 
 
-�@���Í����E�������[�h���ȗ������ꍇ
+　●暗号化・復号モードを省略した場合
 
-�@�@���̓t�@�C���̊g���q�� .cphr �ł���ꍇ�A�������[�h�ɁA
-�@�@����ȊO�͈Í������[�h�ɂȂ�܂��B
+　　入力ファイルの拡張子が .cphr である場合、復号モードに、
+　　それ以外は暗号化モードになります。
 
 
-�@�����s��
+　●実行例
 
-�@�@fCipher.exe /E /P �Ԓ����� C:\Data\Plain.txt C:\tmp\Cipher.enc
+　　fCipher.exe /E /P 花鳥風月 C:\Data\Plain.txt C:\tmp\Cipher.enc
 
-�@�@�@... ���̓t�@�C�� "C:\Data\Plain.txt" ���p�X�t���[�Y "�Ԓ�����" �ňÍ������� "C:\tmp\Cipher.enc" �ɏo�͂���B
+　　　... 入力ファイル "C:\Data\Plain.txt" をパスフレーズ "花鳥風月" で暗号化して "C:\tmp\Cipher.enc" に出力する。
 
-�@�@fCipher.exe /D /P ���k�����ԓ� Encrypt.bin sub\Decrypt.bin
+　　fCipher.exe /D /P 東北自動車道 Encrypt.bin sub\Decrypt.bin
 
-�@�@�@... ���̓t�@�C�� ".\Encrypt.bin" ���p�X�t���[�Y "���k�����ԓ�" �ŕ������� ".\sub\Decrypt.bin" �ɏo�͂���B
+　　　... 入力ファイル ".\Encrypt.bin" をパスフレーズ "東北自動車道" で復号して ".\sub\Decrypt.bin" に出力する。
 
-�@�@fCipher.exe /P ���Ԑጎ 123.dat
+　　fCipher.exe /P 風花雪月 123.dat
 
-�@�@�@... ���̓t�@�C�� ".\123.dat" ���p�X�t���[�Y "���Ԑጎ" �ňÍ������� ".\123.dat.cphr" �ɏo�͂���B
+　　　... 入力ファイル ".\123.dat" をパスフレーズ "風花雪月" で暗号化して ".\123.dat.cphr" に出力する。
 
-�@�@fCipher.exe /P �g�E�� ..\ABC.txt.cphr
+　　fCipher.exe /P 紅孔雀 ..\ABC.txt.cphr
 
-�@�@�@... ���̓t�@�C�� "..\ABC.txt.cphr" ���p�X�t���[�Y "�g�E��" �ŕ������� "..\ABC.txt" �ɏo�͂���B
+　　　... 入力ファイル "..\ABC.txt.cphr" をパスフレーズ "紅孔雀" で復号して "..\ABC.txt" に出力する。
 
-�@�@fCipher.exe /B /S /P "harvest time" takami.slot dai3.gen
+　　fCipher.exe /B /S /P "harvest time" takami.slot dai3.gen
 
-�@�@�@... �o�b�`���[�h���T�C�����g���[�h�ŁA���̓t�@�C�� ".\takami.slot" ���p�X�t���[�Y "harvest time" �ňÍ������� ".\dai3.gen" �ɏo�͂���B
+　　　... バッチモード＆サイレントモードで、入力ファイル ".\takami.slot" をパスフレーズ "harvest time" で暗号化して ".\dai3.gen" に出力する。
 
-�@�@fCipher.exe /E /P ���������� /PE x 30 aiueo.in aiueo.out
+　　fCipher.exe /E /P あいうえお /PE x 30 aiueo.in aiueo.out
 
-�@�@�@... ���̓t�@�C�� ".\aiueo.in" ���p�X�t���[�Y "����������" + ( �����o�C�g �~ 64 ) + ( "x" �~ 2^30 ) �ňÍ������� ".\aiueo.out" �ɏo�͂���B
+　　　... 入力ファイル ".\aiueo.in" をパスフレーズ "あいうえお" + ( 乱数バイト × 64 ) + ( "x" × 2^30 ) で暗号化して ".\aiueo.out" に出力する。
 
-�@�@fCipher.exe /D /P ���������� /PE x 30 aiueo.out aiueo.in-dec
+　　fCipher.exe /D /P あいうえお /PE x 30 aiueo.out aiueo.in-dec
 
-�@�@�@... ��ňÍ������� ".\aiueo.out" �𕜍����� ".\aiueo.in-dec" �ɏo�͂���B
+　　　... 上で暗号化した ".\aiueo.out" を復号して ".\aiueo.in-dec" に出力する。
 
-�@�@�@�@�@��/PE �I�v�V�����ňÍ��������t�@�C���𕜍����鎞�� /PE �I�v�V�������w�肷��K�v������܂��B
-�@�@�@�@�@�@�Í������Ɏw�肵�����̂Ɠ��� X-CHR, X-EXT �łȂ���΂Ȃ�܂���B
+　　　　　★/PE オプションで暗号化したファイルを復号する時は /PE オプションを指定する必要があります。
+　　　　　　暗号化時に指定したものと同じ X-CHR, X-EXT でなければなりません。
 
-�@�@fCipher.exe /E /P 6ac43722c0d920d852e69ac6552caf1602852b74cbd63dcce7d9ba4f79e6038dcc68169d882f96bcd2fb452c1e4b1f0f9e6e61aece605a8cd5c173c7bba329fb Plain.dat
+　　fCipher.exe /E /P 6ac43722c0d920d852e69ac6552caf1602852b74cbd63dcce7d9ba4f79e6038dcc68169d882f96bcd2fb452c1e4b1f0f9e6e61aece605a8cd5c173c7bba329fb Plain.dat
 
-�@�@�@... ���̓t�@�C�� ".\Plain.dat" ���A�w�肳�ꂽ512�r�b�g�̌��ňÍ������� ".\Plain.dat.cphr" �ɏo�͂���B
+　　　... 入力ファイル ".\Plain.dat" を、指定された512ビットの鍵で暗号化して ".\Plain.dat.cphr" に出力する。
 
 
-���p�X�t���[�Y�E���̐���
+■パスフレーズ・鍵の生成
 
-�@�ȉ��̃R�}���h�����s����ƁA�����_���ȃp�X�t���[�Y��W���o�͂��܂��B��2
+　以下のコマンドを実行すると、ランダムなパスフレーズを標準出力します。※2
 
-�@�@fCipher.exe /MP [P-LEN]
+　　fCipher.exe /MP [P-LEN]
 
-�@�@�@P-LEN ... �p�X�t���[�Y�̕�����, �f�t�H���g�� 22 ����, �w��ł���͈͂� 3 �` 1000
+　　　P-LEN ... パスフレーズの文字数, デフォルトは 22 文字, 指定できる範囲は 3 ～ 1000
 
-�@�@�@�p�X�t���[�Y�͈ȉ��̕����O���[�v����\������A���ꂼ�� 1 �����ȏ�o������悤�ɂ��܂��B
-�@�@�@�E���p�p�啶��
-�@�@�@�E���p�p������
-�@�@�@�E���p����
+　　　パスフレーズは以下の文字グループから構成され、それぞれ 1 文字以上出現するようにします。
+　　　・半角英大文字
+　　　・半角英小文字
+　　　・半角数字
 
 
-�@�ȉ��̃R�}���h�����s����ƁA�����_���Ȍ���W���o�͂��܂��B��2
+　以下のコマンドを実行すると、ランダムな鍵を標準出力します。※2
 
-�@�@fCipher.exe /MK
+　　fCipher.exe /MK
 
 
-�@�����s��
+　●実行例
 
-�@�@fCipher.exe /MP
+　　fCipher.exe /MP
 
-�@�@fCipher.exe /MP 10
+　　fCipher.exe /MP 10
 
-�@�@fCipher.exe /MK
+　　fCipher.exe /MK
 
 
-���Í����̎���
+■暗号化の実装
 
-�@CIPHER = cbcx ( cbcx ( PLAIN + padding + randpart + hash + iv , key1 ) , key2 ) + perand
+　CIPHER = cbcx ( cbcx ( PLAIN + padding + randpart + hash + iv , key1 ) , key2 ) + perand
 
-�@�@padding  ... n �� n ���ׂ��o�C�g��, n �� PLAIN + padding �̃o�C�g����16�̔{���ƂȂ�悤�ȃ[���ł͂Ȃ�8�r�b�g�̗��� ��2
-�@�@randpart ... 512�r�b�g�̗��� (64�o�C�g) ��2
-�@�@hash     ... PLAIN + padding + randpart �� SHA-512 (64�o�C�g) ��3
-�@�@iv       ... 128�r�b�g�̗��� (16�o�C�g) ��2
-�@�@key1     ... ���̑O��256�r�b�g
-�@�@key2     ... ���̌㔼256�r�b�g
-�@�@cbcx     ... ����256�r�b�g��camellia�ɂ��Í���, �Ō�̃u���b�N��IV�Ƃ���CBC���[�h ��4
+　　padding  ... n を n 個並べたバイト列, n は PLAIN + padding のバイト数が16の倍数となるようなゼロではない8ビットの乱数 ※2
+　　randpart ... 512ビットの乱数 (64バイト) ※2
+　　hash     ... PLAIN + padding + randpart の SHA-512 (64バイト) ※3
+　　iv       ... 128ビットの乱数 (16バイト) ※2
+　　key1     ... 鍵の前半256ビット
+　　key2     ... 鍵の後半256ビット
+　　cbcx     ... 鍵長256ビットのcamelliaによる暗号化, 最後のブロックをIVとするCBCモード ※4
 
-�@�@perand   ... /PE �I�v�V�������w�肵���ꍇ�A/PE �I�v�V�����Ŏg�p����u�����_���ȃo�C�g��_64�o�C�g�v(64�o�C�g)
-�@�@             /PE �I�v�V�������w�肵�Ȃ������ꍇ�A�������� (0�o�C�g)
+　　perand   ... /PE オプションを指定した場合、/PE オプションで使用する「ランダムなバイト列_64バイト」(64バイト)
+　　             /PE オプションを指定しなかった場合、何も無し (0バイト)
 
 
-����舵�����
+■取り扱い種別
 
-�@�t���[�\�t�g
+　フリーソフト
 
 
-����҂ւ̘A����
+■作者への連絡先
 
-�@stackprobes@gmail.com
+　stackprobes@gmail.com
 
-�@�o�O��v�]�Ȃǂ��A�����������B
+　バグや要望などご連絡ください。
 
 
-������
+■注釈
 
-�@�@��1 ���̃I�v�V�������w�肵�ĕ����Ɏ��s����ƁA���́E�o�̓t�@�C�����ɍ폜����邱�Ƃɒ��ӂ��ĉ������B
-�@�@��2 ������ CSPRNG (CryptGenRandom) ����擾���܂��B
-�@�@��3 ������ hash ����v���Ȃ���΁A���̕s��v���t�@�C���̔j��(������)�ƌ��Ȃ��܂��B
-�@�@��4 �Ⴆ�� P1 + P2 + P3 ���Í������� C1 + C2 + C3 �͈ȉ��̂Ƃ���ɂȂ�܂��B(Px,Cx �͂��ꂼ��1�u���b�N)
-�@�@�@�@C1 = encrypt ( xor ( P1 , P3 ) )
-�@�@�@�@C2 = encrypt ( xor ( P2 , C1 ) )
-�@�@�@�@C3 = encrypt ( xor ( P3 , C2 ) )
+　　※1 このオプションを指定して復号に失敗すると、入力・出力ファイル共に削除されることに注意して下さい。
+　　※2 乱数は CSPRNG (CryptGenRandom) から取得します。
+　　※3 復号時 hash が一致しなければ、鍵の不一致かファイルの破損(改ざん)と見なします。
+　　※4 例えば P1 + P2 + P3 を暗号化した C1 + C2 + C3 は以下のとおりになります。(Px,Cx はそれぞれ1ブロック)
+　　　　C1 = encrypt ( xor ( P1 , P3 ) )
+　　　　C2 = encrypt ( xor ( P2 , C1 ) )
+　　　　C3 = encrypt ( xor ( P3 , C2 ) )
 
