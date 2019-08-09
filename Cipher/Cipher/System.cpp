@@ -1,7 +1,6 @@
 #include "all.h"
 
 int BatchMode;
-int SilentMode;
 
 void termination(int errorlevel)
 {
@@ -34,6 +33,8 @@ void error2(char *source, int lineno, char *function, char *message)
 
 	termination(EXITCODE_ERROR);
 }
+
+#define cout cout2
 
 // sync > @ cout
 
@@ -120,6 +121,19 @@ void coutLongText_x(char *text)
 }
 
 // < sync
+
+#undef cout
+
+void (*cout)(char *format, ...) = cout2;
+
+static void cout_Noop(char *format, ...)
+{
+	// noop
+}
+void SetSilentMode(int flag)
+{
+	cout = flag ? cout_Noop : cout2;
+}
 
 static int ArgIndex = 1;
 

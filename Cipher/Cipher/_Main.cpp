@@ -20,7 +20,7 @@ readArgs:
 		cout("%s\n", pw);
 		memFree(pw);
 
-		SilentMode = 1; // exitcode: 0 を表示させないため。
+		SetSilentMode(1); // exitcode: 0 を表示させないため。
 		termination(EXITCODE_NORMAL);
 	}
 	if(argIs("/MK"))
@@ -29,7 +29,7 @@ readArgs:
 		cout("%s\n", pk);
 		memFree(pk);
 
-		SilentMode = 1; // exitcode: 0 を表示させないため。
+		SetSilentMode(1); // exitcode: 0 を表示させないため。
 		termination(EXITCODE_NORMAL);
 	}
 	if(argIs("/B"))
@@ -39,7 +39,7 @@ readArgs:
 	}
 	if(argIs("/S"))
 	{
-		SilentMode = 1;
+		SetSilentMode(1);
 		goto readArgs;
 	}
 	if(argIs("/R"))
