@@ -51,10 +51,10 @@ void fileCopy(char *rFile, char *wFile)
 {
 	remove(wFile); // anti rFile == wFile
 
+	__int64 rCount = getFileSize(rFile);
+
 	FILE *rfp = fileOpen(rFile, "rb");
 	FILE *wfp = fileOpen(wFile, "wb");
-
-	__int64 rCount = getFileSize(rFile);
 
 	const int buffSize = 1000000;
 	uchar *buff = (uchar *)memAlloc(buffSize);
