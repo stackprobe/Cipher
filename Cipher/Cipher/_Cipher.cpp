@@ -15,10 +15,11 @@ static void AddPadding(char *file)
 	cout("padSize: %d\n", padSize);
 	FILE *fp = fileOpen(file, "ab");
 
-	for(int count = padSize; count; count--)
+	for(int count = padSize - 1; count; count--)
 	{
-		writeChar(fp, padSize);
+		writeChar(fp, getCryptoByte());
 	}
+	writeChar(fp, padSize);
 	fileClose(fp);
 }
 static int UnaddPadding(char *file) // ret: ? successful

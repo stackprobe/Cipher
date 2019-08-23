@@ -176,18 +176,19 @@
 
 ■暗号化の実装
 
-　CIPHER = cbcx ( cbcx ( PLAIN + padding + randpart + hash + iv , key1 ) , key2 ) + perand
+　CIPHER = cbcx ( cbcx ( PLAIN + padding + padding_n + randpart + hash + iv , key1 ) , key2 ) + perand
 
-　　padding  ... n を n 個並べたバイト列, n は PLAIN + padding のバイト数が240以上及び16の倍数となるようなゼロではない8ビットの乱数 ※2
-　　randpart ... 512ビットの乱数 (64バイト) ※2
-　　hash     ... PLAIN + padding + randpart の SHA-512 (64バイト) ※3
-　　iv       ... 128ビットの乱数 (16バイト) ※2
-　　key1     ... 鍵の前半256ビット
-　　key2     ... 鍵の後半256ビット
-　　cbcx     ... 鍵長256ビットのcamelliaによる暗号化, 最後のブロックをIVとするCBCモード ※4
+　　padding   ... ランダムなバイト列 (padding_n - 1 バイト) ※2
+　　padding_n ... PLAIN + padding + padding_n のバイト数が240以上及び16の倍数となるようなゼロではない8ビットの乱数 (1バイト) ※2
+　　randpart  ... 512ビットの乱数 (64バイト) ※2
+　　hash      ... PLAIN + padding + padding_n + randpart の SHA-512 (64バイト) ※3
+　　iv        ... 128ビットの乱数 (16バイト) ※2
+　　key1      ... 鍵の前半256ビット
+　　key2      ... 鍵の後半256ビット
+　　cbcx      ... 鍵長256ビットのcamelliaによる暗号化, 最後のブロックをIVとするCBCモード ※4
 
-　　perand   ... /PE オプションを指定した場合、/PE オプションで使用する「ランダムなバイト列_64バイト」(64バイト)
-　　             /PE オプションを指定しなかった場合、何も無し (0バイト)
+　　perand    ... /PE オプションを指定した場合、/PE オプションで使用する「ランダムなバイト列_64バイト」(64バイト)
+　　              /PE オプションを指定しなかった場合、何も無し (0バイト)
 
 
 ■取り扱い種別
