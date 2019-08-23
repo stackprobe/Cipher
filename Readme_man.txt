@@ -143,7 +143,7 @@
 
 　　fCipher.exe /E /P 6ac43722c0d920d852e69ac6552caf1602852b74cbd63dcce7d9ba4f79e6038dcc68169d882f96bcd2fb452c1e4b1f0f9e6e61aece605a8cd5c173c7bba329fb Plain.dat
 
-　　　... 入力ファイル ".\Plain.dat" を、指定された512ビットの鍵で暗号化して ".\Plain.dat.cphr" に出力する。
+　　　... 入力ファイル ".\Plain.dat" を、指定された512ビットの鍵(6ac4...29fb)で暗号化して ".\Plain.dat.cphr" に出力する。
 
 
 ■パスフレーズ・鍵の生成
@@ -178,7 +178,7 @@
 
 　CIPHER = cbcx ( cbcx ( PLAIN + padding + randpart + hash + iv , key1 ) , key2 ) + perand
 
-　　padding  ... n を n 個並べたバイト列, n は PLAIN + padding のバイト数が16の倍数となるようなゼロではない8ビットの乱数 ※2
+　　padding  ... n を n 個並べたバイト列, n は PLAIN + padding のバイト数が240以上及び16の倍数となるようなゼロではない8ビットの乱数 ※2
 　　randpart ... 512ビットの乱数 (64バイト) ※2
 　　hash     ... PLAIN + padding + randpart の SHA-512 (64バイト) ※3
 　　iv       ... 128ビットの乱数 (16バイト) ※2

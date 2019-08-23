@@ -2,8 +2,16 @@
 
 static void AddPadding(char *file)
 {
-	int padSize = 16 - (int)(getFileSize(file) & 0x0f);
-	padSize |= getCryptoByte() & 0xf0;
+	__int64 fileSize = getFileSize(file);
+	int padSzLow = (16 - (int)(fileSize & 0x0f)) & 0x0f;
+	int padSize;
+
+	do
+	{
+		padSize = padSzLow | (getCryptoByte() & 0xf0);
+	}
+	while(padSize < 1 || fileSize + padSize < 240);
+
 	cout("padSize: %d\n", padSize);
 	FILE *fp = fileOpen(file, "ab");
 
