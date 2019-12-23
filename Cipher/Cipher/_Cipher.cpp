@@ -6,6 +6,9 @@ static void AddPadding(char *file)
 	int padSzLow = (16 - (int)(fileSize & 0x0f)) & 0x0f;
 	int padSize;
 
+	// padSize == パディングサイズ
+	// Cipher2.c の cphrAddPadding は(パディングサイズ-1)
+
 	do
 	{
 		padSize = padSzLow | (getCryptoByte() & 0xf0);
