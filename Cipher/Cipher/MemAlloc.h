@@ -4,8 +4,8 @@ void memFree(void *block);
 void *memCalloc(int size);
 void *memClone(void *block, int size);
 
-#define na(TYPE_T, count) \
+#define na_(TYPE_T, count) \
 	((TYPE_T *)memCalloc(sizeof(TYPE_T) * (count)))
 
-#define nb(TYPE_T) \
-	(na(TYPE_T, 1))
+#define nb_(TYPE_T) \
+	(na_(TYPE_T, 1))

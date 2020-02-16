@@ -88,7 +88,7 @@ uchar *GetRawKey(char *str, int cphrMode, char *rFile)
 			{
 				XExInfoSz = 64;
 //				XExInfoSz = 64 + 2; // old
-				XExInfo = na(uchar, XExInfoSz);
+				XExInfo = na_(uchar, XExInfoSz);
 
 				if(cphrMode == CPHR_ENC)
 				{
