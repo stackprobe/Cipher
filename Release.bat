@@ -9,4 +9,4 @@ rem C:\Factory\Tools\zcp.exe out C:\app\fCipher
 
 C:\Factory\SubTools\zip.exe /O out fCipher
 
-PAUSE
+IF NOT "%1" == "/-P" PAUSE
