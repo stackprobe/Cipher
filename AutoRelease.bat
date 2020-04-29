@@ -20,5 +20,3 @@ START "" /B /WAIT /DC:\home\bat syncRev
 CALL qrumauto rel
 
 rem **** AUTO RELEASE COMPLETED ****
-
-:END
