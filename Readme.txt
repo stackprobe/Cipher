@@ -7,7 +7,7 @@
 ビルド済み配布物
 ----------------
 
-http://stackprobe.dip.jp/fCipher
+http://stackprobe.ccsp.mydns.jp/fCipher
 
 
 マニュアル
